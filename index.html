@@ -58,6 +58,17 @@
           searchedCitiesArray = [];
         } else {
           searchedCitiesArray = JSON.parse(storedCitiesString);
+          writeArrayToDom();
+        }
+
+        function writeArrayToDom() {
+          var historyEl = $(".history");
+          historyEl.empty();
+          for (var i = 0; i < searchedCitiesArray.length; i++) {
+            var listEl = $("<li>");
+            listEl.text(searchedCitiesArray[i]);
+            historyEl.prepend(listEl);
+          }
         }
 
         $("#search-button").on("click", function() {
@@ -67,6 +78,8 @@
             "searchedCities",
             JSON.stringify(searchedCitiesArray)
           );
+          writeArrayToDom();
+          // TODO: Make an API call to weather API to get info for the searchTerm
         });
       });
     </script>
